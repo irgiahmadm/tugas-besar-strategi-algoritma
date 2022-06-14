@@ -1,4 +1,5 @@
 const readline = require("readline")
+const dataSets = require('./data.json')
 const { performance } = require("perf_hooks")
 
 // init variables
@@ -14,24 +15,28 @@ function main () {
     input.question("(1) Greedy \n(2) Brute Force \n(3) Compare both of them \n(4) Quit \nWhich one would you use? ", function (answer) {
         // initiate output
         let output = null
-    
+
         // dummy data (represent time)
-        let arr = new Array(900, 940, 950, 1100, 1500, 1800)
-        let dep = new Array(910, 1200, 1120, 1130, 1900, 2000)
-    
+        // let arr = [900, 940, 950, 1100, 1500, 1800]
+        // let dep = [910, 1200, 1120, 1130, 1900, 2000]
+
+        // dummy data (represent time)
+        let arr = dataSets.arr
+        let dep = dataSets.dep
+
         if (answer == 1) output = findPlatformGreedy(arr, dep, arr.length)
         else if (answer == 2) output = findPlatformBruteForce(arr, dep, arr.length)
         else if (answer == 3) { // if want to comparing both of algorithm
             let greedy = findPlatformGreedy(arr, dep, arr.length)
             let brute = findPlatformBruteForce(arr, dep, arr.length)
 
-            console.log(`\nExecution time : ${greedy.time} \nMinimum Number of Platforms Required (greedy) : ${greedy.result} \n\nExecution time : ${brute.time} \nMinimum Number of Platforms Required (Brute Force) : ${brute.result} \n\n`)
+            console.log(`\nExecution time : ${greedy.time} millisecond \nMinimum Number of Platforms Required (greedy) : ${greedy.result} \n\nExecution time : ${brute.time} millisecond \nMinimum Number of Platforms Required (Brute Force) : ${brute.result} \n\n`)
 
             return main()
         } else return console.log("---The end---")
 
         console.log(`\nMinimum Number of Platforms Required : ${output.result}`)
-        console.log(`Execution time : ${output.time} \n`)
+        console.log(`Execution time : ${output.time} millisecond \n`)
 
         return main()
     })
